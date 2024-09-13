@@ -14,12 +14,14 @@ build:
   number: 1
   entry_points:
     - chevron=chevron:cli_main
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
 
 requirements:
   host:
     - pip
     - python
+    - wheel
   run:
     - python
 
@@ -28,6 +30,7 @@ test:
     - chevron
   commands:
     - chevron --help
+    - pip check
 
 about:
   home: https://github.com/noahmorrison/chevron
@@ -36,8 +39,14 @@ about:
   license_file: LICENSE
   summary: Mustache templating language renderer
   dev_url: https://github.com/noahmorrison/chevron
+  doc_url: https://github.com/noahmorrison/chevron/blob/main/README.md
 
 extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/49522
+    reason: Dependency for chainlit
+  recipe-maintainers:
+    - ianaobi
   recipe-maintainers:
     - mxr-conda
     - rluria14
